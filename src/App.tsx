@@ -17,7 +17,7 @@ function App() {
     { id: 3, title: "Vite" },
   ]);
 
-  const addTask = title => {
+  const addTask = (title: unknown) => {
     setTasks(tasks => [...tasks, {id: tasks.length + 1, title}])
   }
 
@@ -48,7 +48,7 @@ function App() {
   return (
     <>
       <div className="App">
-        <h1>My Task ✅</h1>
+        <h1>Trollo</h1>
         <Input onSubmit={addTask}/>
         <DndContext
         sensors={sensors}
@@ -58,6 +58,7 @@ function App() {
           <Column tasks={tasks} />
         </DndContext>
       </div>
+      
     </>
   );
 }

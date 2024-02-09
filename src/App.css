@@ -7,3 +7,12 @@
     gap: 50px;
     margin-top: 10px;
 }
+
+h1{
+    margin-top: 20px;
+    border-bottom: 1px solid black;
+}
+
+h1:hover{
+    color: red;
+}
