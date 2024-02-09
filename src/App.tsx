@@ -12,9 +12,9 @@ function App() {
   };
 
   const [tasks, setTasks] = useState<Task[]>([
-    { id: 1, title: "a" },
-    { id: 2, title: "b" },
-    { id: 3, title: "c" },
+    { id: 1, title: "TypeScript" },
+    { id: 2, title: "React" },
+    { id: 3, title: "Vite" },
   ]);
 
   const addTask = title => {
