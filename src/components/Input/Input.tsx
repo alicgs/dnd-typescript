@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import "./Input.css"
+import { useState } from "react";
+import "./Input.css";
 
-export const Input = ({ onSubmit }) => {
+export const Input = ({ onSubmit }: { onSubmit: (input: string) => void }) => {
   const [input, setInput] = useState("");
 
   const handleSubmit = () => {
@@ -20,7 +20,9 @@ export const Input = ({ onSubmit }) => {
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
-      <button onClick={handleSubmit} className="button" >Add</button>
+      <button onClick={handleSubmit} className="button">
+        Add
+      </button>
     </div>
   );
 };

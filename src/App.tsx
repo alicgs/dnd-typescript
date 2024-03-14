@@ -1,6 +1,15 @@
 import "./App.css";
 import { useState } from "react";
-import { DndContext, KeyboardSensor, PointerSensor, TouchSensor, closestCorners, useSensor, useSensors } from "@dnd-kit/core";
+import {
+  DndContext,
+  KeyboardSensor,
+  PointerSensor,
+  TouchSensor,
+  closestCorners,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
 import Column from "./components/Column/Column";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import Input from "./components/Input/Input";
@@ -17,20 +26,20 @@ function App() {
     { id: 3, title: "Vite" },
   ]);
 
-  const addTask = (title: unknown) => {
-    setTasks(tasks => [...tasks, {id: tasks.length + 1, title}])
-  }
+  const addTask = (title: string) => {
+    setTasks((tasks) => [...tasks, { id: tasks.length + 1, title }]);
+  };
 
-  const getTaskPos = (id) => tasks.findIndex((task) => task.id === id);
+  const getTaskPos = (id: number) => tasks.findIndex((task) => task.id === id);
 
-  const handleDragEnd = (event) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
-    if (active.id === over.id) return;
+    if (over === null || active.id === over.id) return;
 
     setTasks((tasks) => {
-      const originalPos = getTaskPos(active.id);
-      const newPos = getTaskPos(over.id);
+      const originalPos = getTaskPos(Number(active.id));
+      const newPos = getTaskPos(Number(over.id));
 
       return arrayMove(tasks, originalPos, newPos);
     });
@@ -40,25 +49,23 @@ function App() {
     useSensor(PointerSensor),
     useSensor(TouchSensor),
     useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates
+      coordinateGetter: sortableKeyboardCoordinates,
     })
-   
-  )
+  );
 
   return (
     <>
       <div className="App">
         <h1>Trollo</h1>
-        <Input onSubmit={addTask}/>
+        <Input onSubmit={addTask} />
         <DndContext
-        sensors={sensors}
+          sensors={sensors}
           onDragEnd={handleDragEnd}
           collisionDetection={closestCorners}
         >
           <Column tasks={tasks} />
         </DndContext>
       </div>
-      
     </>
   );
 }
